@@ -155,7 +155,11 @@ export default class SwipeCards extends Component {
               useNativeDriver: true,
             });
             this.cardAnimation.start((status) => {
-              if (status.finished) this._advanceState();
+//            if (status.finished) this._advanceState();
+              if (status.finished)
+                if (hasMovedLeft) this._advanceState();
+                else if (hasMovedRight) this._goToPrevCard();
+//            SWIPE: left for next; right for previous
               else this._resetState();
 
               this.cardAnimation = null;
