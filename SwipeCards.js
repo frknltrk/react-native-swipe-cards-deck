@@ -22,15 +22,15 @@ const actionShape = PropTypes.shape({
 });
 
 const defaultActionsProp = {
-  yup: { show: true, text: "Yup!", color: "green" },
-  nope: { show: true, text: "Nope!", color: "red" },
-  maybe: { show: true, text: "Maybe!", color: "orange" },
+	left: { show: true, text: "Next", color: "green" },
+  right: { show: true, text: "Previous", color: "red" },
+  up: { show: true, text: "?", color: "orange" },
 };
 
 const mergeActionProps = (actionsProps) => ({
-  yup: { ...defaultActionsProp.yup, ...actionsProps.yup },
-  nope: { ...defaultActionsProp.nope, ...actionsProps.nope },
-  maybe: { ...defaultActionsProp.maybe, ...actionsProps.maybe },
+  right: { ...defaultActionsProp.right, ...actionsProps.right },
+  left: { ...defaultActionsProp.left, ...actionsProps.left },
+  up: { ...defaultActionsProp.up, ...actionsProps.up },
 });
 
 export default class SwipeCards extends Component {
@@ -110,7 +110,7 @@ export default class SwipeCards extends Component {
           Math.abs(this.state.pan.y._value) > this.props.swipeThreshold;
         if (
           hasSwipedHorizontally ||
-          (hasSwipedVertically && this.props.hasMaybeAction)
+          (hasSwipedVertically && this.props.hasUpAction)
         ) {
           const hasMovedRight =
             hasSwipedHorizontally && this.state.pan.x._value > 0;
@@ -119,25 +119,25 @@ export default class SwipeCards extends Component {
           const hasMovedUp = hasSwipedVertically && this.state.pan.y._value < 0;
 
           let cancelled = false;
-          if (hasMovedRight && this.mergedActionsProps.yup.onAction) {
-            cancelled = !(await this.mergedActionsProps.yup.onAction(
+          if (hasMovedRight && this.mergedActionsProps.right.onAction) {
+            cancelled = !(await this.mergedActionsProps.right.onAction(
               this.state.card
             ));
-          } else if (hasMovedLeft && this.mergedActionsProps.nope.onAction) {
-            cancelled = !(await this.mergedActionsProps.nope.onAction(
+          } else if (hasMovedLeft && this.mergedActionsProps.left.onAction) {
+            cancelled = !(await this.mergedActionsProps.left.onAction(
               this.state.card
             ));
           } else if (
             hasMovedUp &&
-            this.props.hasMaybeAction &&
-            this.mergedActionsProps.maybe.onAction
+            this.props.hasUpAction &&
+            this.mergedActionsProps.up.onAction
           ) {
-            cancelled = !(await this.mergedActionsProps.maybe.onAction(
+            cancelled = !(await this.mergedActionsProps.up.onAction(
               this.state.card
             ));
           }
 
-          //Yup or nope was cancelled, return the card to normal.
+          //Swipe left/right was cancelled, return the card to normal.
           if (cancelled) {
             this._resetPan();
             return;
@@ -457,9 +457,9 @@ export default class SwipeCards extends Component {
     );
   }
 
-  renderNope() {
+  renderLeft() {
     let { pan } = this.state;
-    let nopeOpacity = pan.x.interpolate({
+    let leftOpacity = pan.x.interpolate({
       inputRange: [
         -this.props.swipeThreshold,
         -(this.props.swipeThreshold / 2),
@@ -467,22 +467,22 @@ export default class SwipeCards extends Component {
       outputRange: [1, 0],
       extrapolate: "clamp",
     });
-    let nopeScale = pan.x.interpolate({
+    let leftScale = pan.x.interpolate({
       inputRange: [-this.props.swipeThreshold, 0],
       outputRange: [1, 0],
       extrapolate: "clamp",
     });
 
     return this.renderAction(
-      nopeOpacity,
-      nopeScale,
-      this.mergedActionsProps.nope
+      leftOpacity,
+      leftScale,
+      this.mergedActionsProps.left
     );
   }
 
-  renderMaybe() {
+  renderUp() {
     let { pan } = this.state;
-    let maybeOpacity = pan.y.interpolate({
+    let upOpacity = pan.y.interpolate({
       inputRange: [
         -this.props.swipeThreshold,
         -(this.props.swipeThreshold / 2),
@@ -490,44 +490,44 @@ export default class SwipeCards extends Component {
       outputRange: [1, 0],
       extrapolate: "clamp",
     });
-    let maybeScale = pan.x.interpolate({
+    let upScale = pan.x.interpolate({
       inputRange: [-this.props.swipeThreshold, 0, this.props.swipeThreshold],
       outputRange: [0, 1, 0],
       extrapolate: "clamp",
     });
 
     return this.renderAction(
-      maybeOpacity,
-      maybeScale,
-      this.mergedActionsProps.maybe
+      upOpacity,
+      upScale,
+      this.mergedActionsProps.up
     );
   }
 
-  renderYup() {
+  renderRight() {
     let { pan } = this.state;
-    let yupOpacity = pan.x.interpolate({
+    let rightOpacity = pan.x.interpolate({
       inputRange: [this.props.swipeThreshold / 2, this.props.swipeThreshold],
       outputRange: [0, 1],
       extrapolate: "clamp",
     });
-    let yupScale = pan.x.interpolate({
+    let rightScale = pan.x.interpolate({
       inputRange: [0, this.props.swipeThreshold],
       outputRange: [0.5, 1],
       extrapolate: "clamp",
     });
 
-    return this.renderAction(yupOpacity, yupScale, this.mergedActionsProps.yup);
+    return this.renderAction(rightOpacity, rightScale, this.mergedActionsProps.right);
   }
 
   render() {
     return (
       <View style={[styles.container, this.props.style]}>
         {this.props.stack ? this.renderStack() : this.renderCard()}
-        {this.mergedActionsProps.nope.show && this.renderNope()}
-        {this.props.hasMaybeAction &&
-          this.mergedActionsProps.maybe.show &&
-          this.renderMaybe()}
-        {this.mergedActionsProps.yup.show && this.renderYup()}
+        {this.mergedActionsProps.left.show && this.renderLeft()}
+        {this.props.hasUpAction &&
+          this.mergedActionsProps.up.show &&
+          this.renderUp()}
+        {this.mergedActionsProps.right.show && this.renderRight()}
       </View>
     );
   }
@@ -535,7 +535,7 @@ export default class SwipeCards extends Component {
 
 SwipeCards.propTypes = {
   cards: PropTypes.array.isRequired,
-  hasMaybeAction: PropTypes.bool,
+  hasUpAction: PropTypes.bool,
   loop: PropTypes.bool,
   onLoop: PropTypes.func,
   allowGestureTermination: PropTypes.bool,
@@ -546,9 +546,9 @@ SwipeCards.propTypes = {
   stackOffsetY: PropTypes.number,
   renderNoMoreCards: PropTypes.func,
   actions: PropTypes.shape({
-    yup: actionShape,
-    nope: actionShape,
-    maybe: actionShape,
+    right: actionShape,
+    left: actionShape,
+    up: actionShape,
   }),
   onClickHandler: PropTypes.func,
   onDragStart: PropTypes.func,
@@ -564,7 +564,7 @@ SwipeCards.propTypes = {
 
 SwipeCards.defaultProps = {
   cards: [],
-  hasMaybeAction: false,
+  hasUpAction: false,
   loop: false,
   allowGestureTermination: true,
   stack: false,

@@ -35,26 +35,28 @@ export default function App() {
   useEffect(() => {
     setTimeout(() => {
       setCards([
-        { text: "Tomato", backgroundColor: "red" },
-        { text: "Aubergine", backgroundColor: "purple" },
-        { text: "Courgette", backgroundColor: "green" },
-        { text: "Blueberry", backgroundColor: "blue" },
-        { text: "Umm...", backgroundColor: "cyan" },
-        { text: "orange", backgroundColor: "orange" },
+        { text: "1st card", backgroundColor: "red" },
+        { text: "2nd card", backgroundColor: "purple" },
+        { text: "3rd card", backgroundColor: "green" },
+        { text: "4th card", backgroundColor: "blue" },
+        { text: "5th card", backgroundColor: "cyan" },
+        { text: "Last card", backgroundColor: "orange" },
       ]);
     }, 3000);
   }, []);
 
-  function handleYup(card) {
-    console.log(`Yup for ${card.text}`);
-    return true; // return false if you wish to cancel the action
-  }
-  function handleNope(card) {
-    console.log(`Nope for ${card.text}`);
+  function handleLeft() {
+    console.log(`Next`);
     return true;
   }
-  function handleMaybe(card) {
-    console.log(`Maybe for ${card.text}`);
+  
+  function handleRight() {
+    console.log(`Previous`);
+    return true; // return false if you wish to cancel the action
+  }
+  
+  function handleUp() {
+    console.log(`UP`);
     return true;
   }
 
@@ -67,11 +69,11 @@ export default function App() {
           keyExtractor={(cardData) => String(cardData.text)}
           renderNoMoreCards={() => <StatusCard text="No more cards..." />}
           actions={{
-            nope: { onAction: handleNope },
-            yup: { onAction: handleYup },
-            maybe: { onAction: handleMaybe },
+            left: { /*show:false,*/ onAction: handleLeft },
+            right: { *show:false,*/ onAction: handleRight },
+            up: { *show:false,*/ onAction: handleUp },
           }}
-          hasMaybeAction={true}
+          hasUpAction={true}
 
           // If you want a stack of cards instead of one-per-one view, activate stack mode
           // stack={true}
