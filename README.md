@@ -1,5 +1,6 @@
 # Swipeable Cards for React Native
 - swipe-left-for-next;swipe-right-for-previous kind of cards deck/stack similar to the Flutter package [ninest/swipeable_card](https://github.com/ninest/swipeable_card).
+- ![demonstration](screenshots/demonstration.gif)
 - Note that this package is just a mod of [swaplet/react-native-swipe-cards-deck](https://github.com/swaplet/react-native-swipe-cards-deck) in the main.
 
 ## Quick Start
@@ -70,8 +71,8 @@ export default function App() {
           renderNoMoreCards={() => <StatusCard text="No more cards..." />}
           actions={{
             left: { /*show:false,*/ onAction: handleLeft },
-            right: { *show:false,*/ onAction: handleRight },
-            up: { *show:false,*/ onAction: handleUp },
+            right: { /*show:false,*/ onAction: handleRight },
+            up: { /*show:false,*/ onAction: handleUp },
           }}
           hasUpAction={true}
 
