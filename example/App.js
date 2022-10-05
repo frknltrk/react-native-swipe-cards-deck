@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
-import SwipeCards from "react-native-swipeable-cards";
+import SwipeCards from "react-native-swipeable-card-deck";
 
 function Card({ data }) {
   return (

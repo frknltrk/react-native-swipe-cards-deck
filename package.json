@@ -1,5 +1,5 @@
 {
-  "name": "react-native-swipeable-cards",
+  "name": "react-native-swipeable-card-deck",
   "version": "1.0.0",
   "description": "Swipeable cards deck for board games and stuff.",
   "main": "SwipeCards.js",
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/frknltrk/react-native-swipeable-cards.git"
+    "url": "git+https://github.com/frknltrk/react-native-swipeable-card-deck.git"
   },
   "keywords": [
     "react-native",
@@ -20,9 +20,9 @@
   "author": "swaplet",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/frknltrk/react-native-swipeable-cards/issues"
+    "url": "https://github.com/frknltrk/react-native-swipeable-card-deck/issues"
   },
-  "homepage": "https://github.com/frknltrk/react-native-swipeable-cards#readme",
+  "homepage": "https://github.com/frknltrk/react-native-swipeable-card-deck#readme",
   "dependencies": {
     "clamp": "^1.0.1",
     "prop-types": "^15.7.2"
