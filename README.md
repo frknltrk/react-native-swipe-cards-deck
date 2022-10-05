@@ -4,14 +4,14 @@
 - Note that this package is just a mod of [swaplet/react-native-swipe-cards-deck](https://github.com/swaplet/react-native-swipe-cards-deck) in the main.
 
 ## Quick Start
-1. `npm i frknltrk/react-native-swipeable-cards`
-2. Import it `import SwipeCards from "react-native-swipeable-cards"`
+1. `npm i frknltrk/react-native-swipeable-card-deck`
+2. Import it `import SwipeCards from "react-native-swipeable-card-deck"`
 3. Render it `<SwipeCards ... />`
 
 ```javascript
 import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
-import SwipeCards from "react-native-swipeable-cards";
+import SwipeCards from "react-native-swipeable-card-deck";
 
 function Card({ data }) {
   return (
