@@ -1,9 +1,9 @@
 {
-  "name": "rn-swipe-cards-deck-test",
-  "displayName": "rn-swipe-cards-deck-test",
+  "name": "react-native-swipeable-card-deck-test",
+  "displayName": "react-native-swipeable-card-deck-test",
   "expo": {
-    "name": "rn-swipe-cards-deck-test",
-    "slug": "rn-swipe-cards-deck-test",
+    "name": "react-native-swipeable-card-deck-test",
+    "slug": "react-native-swipeable-card-deck-test",
     "version": "1.0.0",
     "assetBundlePatterns": [
       "**/*"
