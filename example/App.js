@@ -86,13 +86,14 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "center"
   },
   card: {
     justifyContent: "center",
     alignItems: "center",
     width: 300,
     height: "70%",
+    userSelect: "none"
   },
   cardsText: {
     fontSize: 22,
